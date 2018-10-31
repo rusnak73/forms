@@ -1,12 +1,14 @@
-<a href="#" class="navbar-brand">Friends</a>
-<input
-  type="number"
-  min="1"
-  max="10"
-  class="form-control mb-3"
-  (change)="currentFormNumber = 0"
-  [(ngModel)]="formsAmount"
->
+<div class="container">
+  <a href="#" class="navbar-brand">Friends</a>
+  <input
+    type="number"
+    min="1"
+    max="10"
+    class="form-control mb-3"
+    (change)="currentFormNumber = 0"
+    [(ngModel)]="formsAmount"
+  >
+</div>
 <!--<button (click)="" class="btn btn-block mb-3">Show form</button>-->
 <div class="card card-body mb-3" *ngIf=" currentFormNumber < formsAmount">
   <h2>Add User!</h2>
@@ -18,7 +20,7 @@
         [(ngModel)]="user.userName"
         [ngClass]="{'is-invalid': userName.errors && userName.touched}"
         class="form-control"
-        name="firstName"
+        name="userName"
         #userName = "ngModel"
         required
         minlength="3">
@@ -57,7 +59,7 @@
         Phone number is requiered!
       </div>
     </div>
-    <button (click)="addUser()" [disabled]="!userForm.form.valid" class="btn btn-block mb-3">Add New User</button>
+    <button [disabled]="!userForm.form.valid" class="btn btn-block mb-3">Add New User</button>
   </form>
 
 </div>
