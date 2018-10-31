@@ -75,8 +75,19 @@ export class UsersComponent implements OnInit {
   }
   addUser() {
     this.users.unshift(this.user);
+    this.user = {
+      firstName: '',
+      secondName: '',
+      age: null,
+      email: '',
+      phone: null,
+      address: {
+        street: '',
+        city: '',
+        state: ''
+      }
+    };
   }
-
   onSubmit (e) {
     e.preventDefault();
     console.log(123);
