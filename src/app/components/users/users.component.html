@@ -1,38 +1,70 @@
 <a href="#" class="navbar-brand">Friends</a>
-<input value="1" min="1"  max="10" type="number" class="form-control mb-3"
-       name="firstName"
-       (change)="currentFormNumber = 0"
-       [(ngModel)]="formsAmount">
+<input
+  type="number"
+  min="1"
+  max="10"
+  class="form-control mb-3"
+  (change)="currentFormNumber = 0"
+  [(ngModel)]="formsAmount"
+>
 <!--<button (click)="" class="btn btn-block mb-3">Show form</button>-->
 <div class="card card-body mb-3" *ngIf=" currentFormNumber < formsAmount">
   <h2>Add User!</h2>
-  <form (submit)="onSubmit($event)">
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
     <div class="form-group">
-      <label >First Name</label>
-      <input type="text" class="form-control"
-             name="firstName"
-            [(ngModel)]="user.userName">
+      <label >Your Name</label>
+      <input
+        type="text"
+        [(ngModel)]="user.userName"
+        [ngClass]="{'is-invalid': userName.errors && userName.touched}"
+        class="form-control"
+        name="firstName"
+        #userName = "ngModel"
+        required
+        minlength="3">
+      <div [hidden]="!userName.errors?.required" class="invalid-feedback">
+        Your name requiered!
+      </div>
+      <div [hidden]="!userName.errors?.minlength" class="invalid-feedback">
+        Must be at least 3 characters!
+      </div>
     </div>
     <div class="form-group">
       <label >E-Mail</label>
       <input type="email" class="form-control"
              name="email"
-             [(ngModel)]="user.email">
+             [(ngModel)]="user.email"
+             [ngClass]="{'is-invalid': userEmail.errors && userEmail.touched}"
+             #userEmail = "ngModel"
+             required
+             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+      <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">
+        Email requiered!
+      </div>
+      <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">
+        Your e-mail is incorrect!
+      </div>
     </div>
     <div class="form-group">
       <label >Phone number</label>
-      <input type="number" class="form-control"
+      <input type="tel" class="form-control"
              name="phone"
-             [(ngModel)]="user.phone">
+             [(ngModel)]="user.phone"
+             [ngClass]="{'is-invalid': userPhone.errors && userPhone.touched}"
+             #userPhone = "ngModel"
+             required>
+      <div [hidden]="!userPhone.errors?.required" class="invalid-feedback">
+        Phone number is requiered!
+      </div>
     </div>
-      <button (click)="addUser()" [disabled]="user.userName === '' || user.email === ''" class="btn btn-block mb-3">Add New User</button>
+    <button (click)="addUser()" [disabled]="!userForm.form.valid" class="btn btn-block mb-3">Add New User</button>
   </form>
 
 </div>
 <ul class="list-unstyled"
     *ngIf="users.length > 0">
   <li class="card card-body" *ngFor="let user of users">
-   <h4>{{user.userName}} <small><button (click)="user.hide = !user.hide;" class="btn btn-dark btn-sm"><i [ngClass]="user.hide ? 'fa fa-plus' : 'fa fa-minus'"></i></button></small></h4>
+    <h4>{{user.userName}} <small><button (click)="user.hide = !user.hide;" class="btn btn-dark btn-sm"><i [ngClass]="user.hide ? 'fa fa-plus' : 'fa fa-minus'"></i></button></small></h4>
     <h3></h3>
     <ul class="list-group" *ngIf="!user.hide && user.email">
       <li class="list-group-item">E-mail: {{user.email}}</li>
@@ -41,6 +73,6 @@
   </li>
 </ul>
 
-<h4 *ngIf="users.length === 0 "> No users were found!</h4>
+<h4 *ngIf="users.length == 0 "> No users were found!</h4>
 
 <div class="nothing"></div>

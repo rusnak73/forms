@@ -37,14 +37,14 @@ export class UsersComponent implements OnInit {
       hide: true,
     };
     this.currentFormNumber++;
-    console.log(this.currentFormNumber);
+    // console.log(this.currentFormNumber);
     // return this.currentFormNumber;
   }
-  onSubmit (e, counter) {
+  onSubmit (e) {
     e.preventDefault();
   }
-  checkFormsAmountVal() {
-    console.log(this.currentFormNumber);
-
-  }
+  // checkFormsAmountVal() {
+  //   console.log(this.currentFormNumber);
+  //
+  // }
 }
