@@ -12,6 +12,7 @@ export class UsersComponent implements OnInit {
     userName: '',
     email: '',
     phone: null,
+    hide: true,
   };
   users: User[];
   // showExtended = true;
@@ -19,6 +20,8 @@ export class UsersComponent implements OnInit {
   // enableAdd: true;
   enabled = false;
   showUserForm = true;
+  formsAmount = 0;
+  currentFormNumber = 0;
 
   constructor() { }
 
@@ -31,10 +34,17 @@ export class UsersComponent implements OnInit {
       userName: '',
       email: '',
       phone: null,
+      hide: true,
     };
+    this.currentFormNumber++;
+    console.log(this.currentFormNumber);
+    // return this.currentFormNumber;
   }
-  onSubmit (e) {
+  onSubmit (e, counter) {
     e.preventDefault();
-    console.log(123);
+  }
+  checkFormsAmountVal() {
+    console.log(this.currentFormNumber);
+
   }
 }

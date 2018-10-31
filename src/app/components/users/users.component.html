@@ -1,6 +1,10 @@
 <a href="#" class="navbar-brand">Friends</a>
-<button (click)="showUserForm = !showUserForm" class="btn btn-block mb-3">Show form</button>
-<div class="card card-body mb-3" *ngIf="showUserForm">
+<input value="1" min="1"  max="10" type="number" class="form-control mb-3"
+       name="firstName"
+       (change)="currentFormNumber = 0"
+       [(ngModel)]="formsAmount">
+<!--<button (click)="" class="btn btn-block mb-3">Show form</button>-->
+<div class="card card-body mb-3" *ngIf=" currentFormNumber < formsAmount">
   <h2>Add User!</h2>
   <form (submit)="onSubmit($event)">
     <div class="form-group">
@@ -23,6 +27,7 @@
     </div>
       <button (click)="addUser()" [disabled]="user.userName === '' || user.email === ''" class="btn btn-block mb-3">Add New User</button>
   </form>
+
 </div>
 <ul class="list-unstyled"
     *ngIf="users.length > 0">
