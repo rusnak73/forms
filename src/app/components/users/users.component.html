@@ -1,0 +1,42 @@
+<a href="#" class="navbar-brand">Friends</a>
+<button (click)="showUserForm = !showUserForm" class="btn btn-block mb-3">Show form</button>
+<div class="card card-body mb-3" *ngIf="showUserForm">
+  <h2>Add User!</h2>
+  <form (submit)="onSubmit($event)">
+    <div class="form-group">
+      <label >First Name</label>
+      <input type="text" class="form-control"
+             name="firstName"
+            [(ngModel)]="user.firstName">
+    </div>
+    <div class="form-group">
+      <label >E-Mail</label>
+      <input type="email" class="form-control"
+             name="email"
+             [(ngModel)]="user.email">
+    </div>
+    <div class="form-group">
+      <label >Phone number</label>
+      <input type="number" class="form-control"
+             name="phone"
+             [(ngModel)]="user.phone">
+    </div>
+      <button (click)="addUser()" [disabled]="user.firstName === '' || user.email === ''" class="btn btn-block mb-3">Add New User</button>
+  </form>
+</div>
+<ul class="list-unstyled"
+    *ngIf="users.length > 0">
+  <li class="card card-body" *ngFor="let user of users" [class.bg-light]="user.isActive">
+   <h3>{{user.firstName}} <small><button (click)="user.hide = !user.hide;" class="btn btn-dark btn-sm"><i [ngClass]="user.hide ? 'fa fa-plus' : 'fa fa-minus'"></i></button></small></h3>
+    <h3>{{user.email}}</h3>
+    <ul class="list-group" *ngIf="!user.hide && user.age && user.address">
+      <li class="list-group-item">Age: {{user.age}}</li>
+      <li class="list-group-item">Address: {{user.address.city}} {{user.address.street}}</li>
+      <li class="list-group-item">Joined: {{user.registered | date }} </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 *ngIf="users.length === 0 "> No users were found!</h4>
+
+<div class="nothing"></div>
